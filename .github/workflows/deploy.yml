@@ -4,26 +4,21 @@ on:
     branches:
       - master
       - dev
-env:
-  MONGODB_CLUSTER_ADDRESS: ${{ secrets.MONGODB_CLUSTER_ADDRESS }}
-  MONGODB_DB_NAME: actionsdb01
-  PORT: 8080
-  MONGODB_USERNAME: umaisahmed79
-  MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment: testing
     steps:
       - name: Get Code
         uses: actions/checkout@v3
       - name: Output information
         run: | 
-          echo "$MONGODB_CLUSTER_ADDRESS"
-          echo "$MONGODB_PASSWORD"
+           echo "${{ MONGODB_USERNAME }}"
   deploy:
     needs: test
     runs-on: ubuntu-latest
+    environment: staging
     steps:
       - name: Output information
         run: |        
-          echo "{{ env.MONGODB_USERNAME }}"
+          echo "{{ MONGODB_USERNAME }}"
