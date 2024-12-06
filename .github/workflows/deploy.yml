@@ -8,17 +8,19 @@ env:
   MONGODB_CLUSTER_ADDRESS: cluster0.3hnou.mongodb.net
   MONGODB_DB_NAME: actionsdb01
   PORT: 8080
+  MONGODB_USERNAME: umaisahmed79
+  MONGODB_PASSWORD: Proficient@123
 jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      MONGODB_USERNAME: umaisahmed79
-      MONGODB_PASSWORD: Proficient@123
     steps:
       - name: Get Code
         uses: actions/checkout@v3
       - name: Output information
-        run: echo ${{ env.MONGODB_DB_NAME }}
+        run: | 
+          echo ${{ secrets.MONGODB_CLUSTER_ADDRESS }}
+          echo ${{ secrets.MONGODB_PASSWORD }}
   deploy:
     needs: test
     runs-on: ubuntu-latest
